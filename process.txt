@@ -1,0 +1,138 @@
+well first of all,
+I...have to tell you about the problem that occurs on this company.
+since I was a kid, I always hears my father's complaining while doing the paper work,
+like is this guy really work this much,
+is this the right amount of money that they took from the advance salary.
+
+anddd on this suspicion and assumption that there is an incorrect data in the system.
+whether it happen by intentionaly misinformation by the employee or a human error.
+you know the thing ah the time card that used to stored the amout of work of employee
+is writen by hand of the supervisor. and the only thing that can prove it authenticity is
+the signature or hand writing signature.
+so from that point I've tried to make a model to detect these anomally information
+
+**********************************************************************************
+... ohh right!how can I not see this! Thank you! thank you!
+I will try this!why cant i not see this..why cant i not see this..why cant i not see this
+you know I probaly can use the deep learning algorithm with this...
+*******************************************************************************************
+
+first of all we need a data to create the model right?
+so I used the some of existing data on the database (and I'm the one who made this database
+you know my father been using microsoft excel for like 20 years and he never doing it right,
+like ... he doesn't use the advantage of column, to seperate the data. so I've made the
+database and move all the data to it, and a web application in order to help my father
+input the data or getting an information.
+yeah but when I shown him and teach him how to use it like you need to enter the password here
+use this form to enther the data
+and he was like this is so unnessessery and too complicated I can remember everything
+about my employee. and I was like may be im wrong he's been using excel for like 20 years
+he not gonna change the way he work. and he also said something like. This work need to be
+touch by human)
+ok get back to the main project
+we need the data to create the model right?
+
+so I get the data from the database and create a new one by going through the employee
+documents like visa working permit and also directly ask the employee for some missing data or new data
+
+and when i got all of this data. we can not use it yet.
+we need to prepare it first. in this process you can think of when you are cook a chicken
+and you got a chicken "a real chicken" you know the one that still have a feather on it.
+so you need to get the only eadible part of the chicken.
+so for the data.
+it's will be like remove an unnecessery column, filling missing data. convert some text column
+into number. and doing the preprocessing like zero mean to make it easier for computation.
+
+next we are going to choose which algorithm that we want to use in our model.
+and there is a lot of machine learning algorithm out there.
+you can think of machine learning algorithm as a black box .
+and you tell it what information you want it to predict.
+then you input your data into the box and wait for the awnser.
+and you can also also config this box to make it better.
+and which one are we going choose. which one is the best for our data?
+we don't know...
+we have to try all of it or as many as you can.
+for this project I start by a using a classification algorithm like SVM, nearest neighbor, decision tree
+it work like, you have a table of your data and you hide one of the column. the classification algorithm
+will try to predict that** and then we use the data that it has predicted compare with the data that
+we hide from before. and check how many it's right or wrong. this is call accuracy.
+and in this project the accuracy of classsification algorithm is not very good.
+i assume that data is suitable with this type of algorithm. may be it's not catagorical.
+it should be fine when predict is this a dog or a cat.
+
+then I tried the regression algorithm. which unsurprisingly not accurate at all.
+because the regression is good for continuous data like ah stock price.
+
+now two main algorithm is not working with the data this is not looking good
+I even tried it with neural netwok you know the deep learning algorithm
+still not working
+
+so the last one the clustering algorithm.
+here is how it work the clustering algorithm will try define a group of data that has a similar pattern
+and that is something I think I can use to create the model.
+because I also have an assumption that worker the employee can be devided into a group of similar work patern.
+and  If there is an incorrect data in the system it will not likely fall into any of this group.
+for example like every employee has worked around 30 hours this week but you have 35 hours. you can see
+the data is standing out.
+that is why I decided to use clustering algorithm.
+
+
+
+
+so how can we  CREATE the prediction model using clustering algorithm.
+the first problme is how many group should there be?
+well because there is alot of features in the data that we are going to use to create the model
+you can think of features as a dimention.
+ah If you look at figure number 2 you can see that I used only two features to plot the graph
+and you can tell right away how the data is group together by using your eyes.
+but what what if we add another feature? the data is going to look like figure number 3
+it's now 3 dimensions. you may can still see how the data is group together.
+but what if we add another dimention. it's now 4-dimention It can't even plot on the graph.
+and the real data is even grater 4 dimentions.
+
+so I have the algorithm called mean shift which will figure out how many cluster there there is. magic
+not really. Do you want to know how it work.
+now we have a rough Idea of how many cluster there is.
+
+next we are going use kmeans algorithm to cluster the data.
+and the reason why I used the kmeans insted of mean shift
+because the cluster from k mean is more sphirical than mean shift and
+I also want to create the out line of the data.
+you can think of this hand is your data. and you want to make an outline of your hand
+the meanshift will create a cluster on each of your finger
+and If you use these cluster to create an outline to cover all of your data
+it will be a circle like this which will cover alot of empty space. that we dont want
+we want the empty space to me as low as possible
+on the other hand if you use k-means and you specify how many cluster you want.
+and the k mean will create a small cluster like on the tips of your fingger
+anouther cluster maybe around here lower.
+as you can see the out line will cover mostly finger and less empty space
+you can see it's looking pretty good right.
+and what if you make it smaller like on every cell of your finger it's will most likely have no empty space 
+at all!
+but unfortunately we can not do that. in machine learning it's called overfitting. the model will
+have a poor accuracy whe predict the new data that it never seen before.
+
+and now we are going to extract these outline from kmeans algorithm.
+and ofcause like i said before we shouldn't use only one algorithm. 
+I also use another algorithm like ward hierachical, DBSCAN spectral algoritm too
+and combine these outline together.
+
+and the model is finnished now how are we going to detect the anomally data.
+we just mesure the distant using euclidient distant from the data to the nearest center to the centroid.
+the centroid is the center of the cluster. combine with the threshold that we define.
+so as a result the longer the distant is the higher possibility it is that the data will be incorrect.
+
+
+
+
+''''
+the other thing like image processing
+you know like ah
+When the worker go back to their country (may be for vacation reason something like this)
+And when I asks them for their document for the paper work in thailand.
+like picture, resident certification. which they will use their phone and take the picture.
+which usesually in a very low quality. beary readable
+so I tried to make it better using both of the photoshop and Image processing. thresholding method
+where you fillter some of the pixel. well ofcause this feature is in photoshop too.
+But I just want to create my own. and some like adaptive guassian thresholding is not available in photoshop.
